@@ -1,4 +1,4 @@
-import { Skin } from "../types/Skin";
+import { Skin } from "../types";
 
 export const SKIN_MOCK: Skin[] = [
   {
@@ -78,6 +78,61 @@ export const SKIN_MOCK: Skin[] = [
   },
   {
     id: 16,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 17,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 18,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 19,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 20,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 21,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 22,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 23,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 24,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 25,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 26,
+    src: "/box.png",
+    name: "",
+  },
+  {
+    id: 27,
     src: "/box.png",
     name: "",
   },

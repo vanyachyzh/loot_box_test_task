@@ -1,83 +1,71 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
-import { Skin } from "../types/Skin";
+import { ScreenSize, Skin } from "../types";
 import { useScreenSize } from "./useScreenSize";
-import { multiplyArray } from "../utils/multiplyArray";
-import { ScreenSize } from "../types/ScreenSize";
 
 interface RouletteProps {
-  skins: Skin[];
-  skinSizeConfig: Record<ScreenSize, number>;
+  items: Skin[];
+  itemSizeConfig: Record<ScreenSize, number>;
   rouletteSizeConfig: Record<ScreenSize, number>;
 }
 
-const useSkinRoulette = ({
-  skins,
-  skinSizeConfig,
+const useRoulette = ({
+  items,
+  itemSizeConfig,
   rouletteSizeConfig,
 }: RouletteProps) => {
   const [isRolling, setIsRolling] = useState(false);
-  const [selectedSkin, setSelectedSkin] = useState<Skin | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const rouletteRef = useRef<HTMLDivElement>(null);
-  const multipliedArray = multiplyArray(skins, 2);
+  const [selectedItem, setSelectedItem] = useState<Skin | null>(null);
 
   const screenSize = useScreenSize();
   const currentRouletteSize = rouletteSizeConfig[screenSize];
-  const currentSkinSize = skinSizeConfig[screenSize];
+  const currentItemSize = itemSizeConfig[screenSize];
+  const middleItemIndex = Math.floor(items.length / 2);
+
+  const rouletteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const rouletteElement = rouletteRef.current;
-    if (rouletteElement) {
-      const rouletteWidth = currentRouletteSize * currentSkinSize;
 
+    if (rouletteElement) {
+      const rouletteWidth = currentRouletteSize * currentItemSize;
       rouletteElement.style.width = `${rouletteWidth}px`;
       rouletteElement.style.display = "flex";
 
-      Array.from(rouletteElement.children).forEach((child) => {
-        (child as HTMLElement).style.minWidth = `${currentSkinSize}px`;
-      });
+      const children = Array.from(rouletteElement.children) as HTMLElement[];
+      children.forEach(
+        (child) => (child.style.minWidth = `${currentItemSize}px`)
+      );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screenSize]);
+  }, [screenSize, currentRouletteSize, currentItemSize]);
 
   const spin = useCallback(() => {
-    const randomIndex =
-      currentIndex +
-      Math.floor(Math.random() * skins.length + skins.length / 2);
+    setIsRolling(true);
     const offset =
-      (currentRouletteSize * currentSkinSize) / 2 - currentSkinSize / 2;
-    const targetX = -(randomIndex * currentSkinSize - offset);
-    setCurrentIndex(randomIndex);
+      currentRouletteSize * currentItemSize * 0.5 - currentItemSize * 0.5;
+    const targetX = -middleItemIndex * currentItemSize + offset;
 
     gsap.to(rouletteRef.current, {
       x: targetX,
       duration: 2.5,
-      ease: "power3.out",
+      ease: "power1.out",
       onStart: () => {
-        setIsRolling(true);
-        setSelectedSkin(null);
+        setSelectedItem(null);
       },
       onComplete: () => {
         setIsRolling(false);
-        setSelectedSkin(multipliedArray[randomIndex]);
+        setSelectedItem(items[middleItemIndex]);
       },
     });
-  }, [
-    currentIndex,
-    currentRouletteSize,
-    currentSkinSize,
-    multipliedArray,
-    skins.length,
-  ]);
+  }, [currentRouletteSize, currentItemSize, middleItemIndex, items]);
 
   return {
     isRolling,
-    selectedSkin,
+    selectedItem,
     rouletteRef,
     spin,
-    rouletteItems: multipliedArray,
+    items,
   };
 };
 
-export default useSkinRoulette;
+export default useRoulette;

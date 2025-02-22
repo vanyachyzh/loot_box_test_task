@@ -1,11 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import SkinRoulette from "../SkinRoulette";
 
 const Box = () => {
   const [hasRoulette, setHasRoulette] = useState(false);
+  const rouletteRef = useRef(null);
+
+  useEffect(() => {
+    if (hasRoulette) {
+      gsap.fromTo(
+        rouletteRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power3.out" }
+      );
+    }
+  }, [hasRoulette]);
 
   return (
     <>
@@ -20,16 +32,17 @@ const Box = () => {
       </div>
 
       {hasRoulette && (
-        <div className="flex items-center justify-center fixed w-full h-full bg-purple-400 top-0 left-0">
+        <div
+          ref={rouletteRef}
+          className="flex items-center justify-center fixed w-full h-full bg-purple-400 top-0 left-0"
+        >
           <button
             className="absolute right-0 top-0"
             onClick={() => setHasRoulette(false)}
           >
             Close
           </button>
-          <div className="overflow-hidden">
-            <SkinRoulette />
-          </div>
+          <SkinRoulette />
         </div>
       )}
     </>
