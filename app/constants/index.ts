@@ -1,18 +1,18 @@
 import { ScreenSize } from "../types";
 
 export const SKIN_SIZE: Record<ScreenSize, number> = {
-  xs: 100,
-  sm: 100,
+  xs: 150,
+  sm: 150,
   md: 200,
-  lg: 200,
-  xl: 200,
+  lg: 400,
+  xl: 400,
 };
 export const ROULETTE_SIZE: Record<ScreenSize, number> = {
   xs: 3,
   sm: 3,
   md: 3,
-  lg: 5,
-  xl: 7,
+  lg: 4,
+  xl: 5,
 };
 export const ATTEMPTS_AMOUNT = 4;
 

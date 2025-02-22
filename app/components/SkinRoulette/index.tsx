@@ -4,10 +4,9 @@ import { SKIN_MOCK } from "@/app/mocks/skins";
 import SkinItem from "../Skin";
 import { useEffect } from "react";
 import { SkinState } from "@/app/types";
-import { twMerge } from "tailwind-merge";
 
 export default function SkinRoulette() {
-  const { rouletteRef, items, spin, selectedItem, isRolling } = useRoulette({
+  const { rouletteRef, items, spin, selectedItem } = useRoulette({
     items: SKIN_MOCK,
     itemSizeConfig: SKIN_SIZE,
     rouletteSizeConfig: ROULETTE_SIZE,
@@ -19,18 +18,7 @@ export default function SkinRoulette() {
   }, []);
 
   return (
-    <div
-      className={twMerge(
-        "relative w-screen flex justify-center items-center",
-        isRolling && "spinner-mask"
-      )}
-    >
-      <div
-        className={twMerge(
-          "glowing-background scale-50 md:scale-150 absolute top-0 left-0 opacity-0",
-          !isRolling && "opacity-100"
-        )}
-      />
+    <div className="relative w-screen flex justify-center items-center">
       <div ref={rouletteRef}>
         {items.map((item, index) => {
           const selectedState =

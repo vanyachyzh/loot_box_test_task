@@ -26,12 +26,12 @@ const SkinItem = ({ skin, state }: Props) => {
           skinRef.current,
           { scale: 1, opacity: 1 },
           {
-            scale: 1.3,
-            duration: 1.5,
+            scale: 2,
+            duration: 3,
             ease: "back.out(1.7)",
             onComplete: () => {
               gsap.to(skinRef.current, {
-                y: -10,
+                y: -20,
                 repeat: -1,
                 yoyo: true,
                 duration: 2,
@@ -51,20 +51,19 @@ const SkinItem = ({ skin, state }: Props) => {
         break;
 
       default:
-        console.log(`Sorry, we are out of`);
+        console.log("TODO");
     }
   }, [play, skinRef, state]);
 
   return (
-    <div ref={skinRef}>
+    <div ref={skinRef} className="flex justify-center items-center">
       <Image
         src={skin.src}
         width={100}
         height={100}
-        alt="Box"
+        alt={skin.name}
         className="w-full"
       />
-      <div>{skin.id}</div>
     </div>
   );
 };
