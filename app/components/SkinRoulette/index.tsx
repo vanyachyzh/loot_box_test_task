@@ -19,13 +19,18 @@ export default function SkinRoulette() {
   }, []);
 
   return (
-    <div className={twMerge("relative", isRolling && "overflow-hidden")}>
+    <div
+      className={twMerge(
+        "relative w-screen flex justify-center items-center",
+        isRolling && "spinner-mask"
+      )}
+    >
       <div
         className={twMerge(
-          "glowing-background absolute top-0 left-0 hidden",
-          !isRolling && "block"
+          "glowing-background scale-50 md:scale-150 absolute top-0 left-0 opacity-0",
+          !isRolling && "opacity-100"
         )}
-      ></div>
+      />
       <div ref={rouletteRef}>
         {items.map((item, index) => {
           const selectedState =
