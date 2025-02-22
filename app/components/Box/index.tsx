@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SkinRoulette from "../SkinRoulette";
 
-const Box = () => {
+const Box = ({ index }: { index: number }) => {
   const [hasRoulette, setHasRoulette] = useState(false);
   const rouletteRef = useRef(null);
 
@@ -21,15 +21,21 @@ const Box = () => {
 
   return (
     <>
-      <div onClick={() => setHasRoulette(true)}>
+      <button
+        className="cursor-pointer disabled:cursor-default disabled:opacity-50"
+        onClick={() => setHasRoulette(true)}
+        disabled={false}
+        aria-label="Loot Box button"
+        title={`Loot Box ${index + 1}`}
+      >
         <Image
-          src="/box.png"
+          src="/images/box.png"
           width={100}
           height={100}
           alt="Box"
           className="w-full"
         />
-      </div>
+      </button>
 
       {hasRoulette && (
         <div

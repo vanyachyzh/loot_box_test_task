@@ -11,6 +11,8 @@ html, body {
   overflow: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none; 
+  background: rgba(0, 0, 0, 0.7) url('/images/chromatica-background.png') center / cover;
+  background-blend-mode: overlay;
 }
 
 .glowing-background {
