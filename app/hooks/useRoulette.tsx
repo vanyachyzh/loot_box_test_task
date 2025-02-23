@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import gsap from "gsap";
 import { ScreenSize, Skin } from "../types";
 import { useScreenSize } from "./useScreenSize";
+import { shuffle } from "lodash";
 
 interface RouletteProps {
   items: Skin[];
@@ -16,10 +17,17 @@ const useRoulette = ({
 }: RouletteProps) => {
   const [isRolling, setIsRolling] = useState(false);
   const [selectedItem, setSelectedItem] = useState<Skin | null>(null);
+  const shuffledItems = useMemo(() => shuffle(items), [items]);
 
   const screenSize = useScreenSize();
-  const currentRouletteSize = rouletteSizeConfig[screenSize];
-  const currentItemSize = itemSizeConfig[screenSize];
+  const currentRouletteSize = useMemo(
+    () => rouletteSizeConfig[screenSize],
+    [rouletteSizeConfig, screenSize]
+  );
+  const currentItemSize = useMemo(
+    () => itemSizeConfig[screenSize],
+    [itemSizeConfig, screenSize]
+  );
   const middleItemIndex = Math.floor(items.length / 2);
 
   const rouletteRef = useRef<HTMLDivElement>(null);
@@ -54,17 +62,17 @@ const useRoulette = ({
       },
       onComplete: () => {
         setIsRolling(false);
-        setSelectedItem(items[middleItemIndex]);
+        setSelectedItem(shuffledItems[middleItemIndex]);
       },
     });
-  }, [currentRouletteSize, currentItemSize, middleItemIndex, items]);
+  }, [currentRouletteSize, currentItemSize, middleItemIndex, shuffledItems]);
 
   return {
     isRolling,
     selectedItem,
     rouletteRef,
     spin,
-    items,
+    items: shuffledItems,
   };
 };
 
