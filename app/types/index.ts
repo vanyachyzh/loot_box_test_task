@@ -1,3 +1,8 @@
+export type Box = {
+  name: string;
+  id: number;
+  skins: Skin[];
+};
 export type Skin = {
   id: number;
   src: string;

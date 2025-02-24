@@ -1,13 +1,11 @@
 import useRoulette from "@/app/hooks/useRoulette";
 import { ROULETTE_SIZE, SKIN_SIZE } from "@/app/constants";
-import { SKIN_MOCK } from "@/app/mocks/skins";
-import SkinItem from "../Skin";
+import SkinItem from "../SkinItem";
 import { useEffect } from "react";
 import { SkinState } from "@/app/types";
 
 export default function SkinRoulette() {
   const { rouletteRef, items, spin, selectedItem } = useRoulette({
-    items: SKIN_MOCK,
     itemSizeConfig: SKIN_SIZE,
     rouletteSizeConfig: ROULETTE_SIZE,
   });

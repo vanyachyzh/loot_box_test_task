@@ -1,23 +1,25 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import gsap from "gsap";
-import { ScreenSize, Skin } from "../types";
+import { ScreenSize } from "../types";
 import { useScreenSize } from "./useScreenSize";
 import { shuffle } from "lodash";
+import useAppDispatch from "./useAppDispatch";
+import { setSkin } from "../store/slices/mainSlice";
+import useAppSelector from "./useAppSelector";
 
 interface RouletteProps {
-  items: Skin[];
   itemSizeConfig: Record<ScreenSize, number>;
   rouletteSizeConfig: Record<ScreenSize, number>;
 }
 
-const useRoulette = ({
-  items,
-  itemSizeConfig,
-  rouletteSizeConfig,
-}: RouletteProps) => {
+const useRoulette = ({ itemSizeConfig, rouletteSizeConfig }: RouletteProps) => {
+  const dispatch = useAppDispatch();
+  const { selectedSkin, selectedBox } = useAppSelector((state) => state.main);
   const [isRolling, setIsRolling] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<Skin | null>(null);
-  const shuffledItems = useMemo(() => shuffle(items), [items]);
+  const shuffledItems = useMemo(
+    () => shuffle(selectedBox?.skins),
+    [selectedBox?.skins]
+  );
 
   const screenSize = useScreenSize();
   const currentRouletteSize = useMemo(
@@ -28,7 +30,7 @@ const useRoulette = ({
     () => itemSizeConfig[screenSize],
     [itemSizeConfig, screenSize]
   );
-  const middleItemIndex = Math.floor(items.length / 2);
+  const middleItemIndex = Math.floor((selectedBox?.skins.length || 0) / 2);
 
   const rouletteRef = useRef<HTMLDivElement>(null);
 
@@ -58,18 +60,24 @@ const useRoulette = ({
       duration: 2.5,
       ease: "power1.out",
       onStart: () => {
-        setSelectedItem(null);
+        dispatch(setSkin(null));
       },
       onComplete: () => {
         setIsRolling(false);
-        setSelectedItem(shuffledItems[middleItemIndex]);
+        dispatch(setSkin(shuffledItems[middleItemIndex]));
       },
     });
-  }, [currentRouletteSize, currentItemSize, middleItemIndex, shuffledItems]);
+  }, [
+    currentRouletteSize,
+    currentItemSize,
+    middleItemIndex,
+    dispatch,
+    shuffledItems,
+  ]);
 
   return {
     isRolling,
-    selectedItem,
+    selectedItem: selectedSkin,
     rouletteRef,
     spin,
     items: shuffledItems,

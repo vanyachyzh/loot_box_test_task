@@ -1,6 +1,6 @@
 import { Skin } from "../types";
 
-export const SKIN_MOCK: Skin[] = [
+export const SKINS_MOCK: Skin[] = [
   { id: 1, src: "/images/skins/ak47.png", name: "Crimson Blaze" },
   { id: 2, src: "/images/skins/ufo.png", name: "Shadow Striker" },
   { id: 3, src: "/images/skins/knife.png", name: "Night Fang" },
