@@ -26,7 +26,7 @@ const SkinItem = ({ skin, state }: Props) => {
           skinRef.current,
           { scale: 1, opacity: 1 },
           {
-            scale: 2,
+            scale: 1.7,
             duration: 3,
             ease: "back.out(1.7)",
             onComplete: () => {

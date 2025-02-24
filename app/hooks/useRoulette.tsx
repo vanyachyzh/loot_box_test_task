@@ -6,6 +6,7 @@ import { shuffle } from "lodash";
 import useAppDispatch from "./useAppDispatch";
 import { setSkin } from "../store/slices/mainSlice";
 import useAppSelector from "./useAppSelector";
+import { toast } from "react-toastify";
 
 interface RouletteProps {
   itemSizeConfig: Record<ScreenSize, number>;
@@ -63,8 +64,10 @@ const useRoulette = ({ itemSizeConfig, rouletteSizeConfig }: RouletteProps) => {
         dispatch(setSkin(null));
       },
       onComplete: () => {
+        const selectedItem = shuffledItems[middleItemIndex];
         setIsRolling(false);
-        dispatch(setSkin(shuffledItems[middleItemIndex]));
+        dispatch(setSkin(selectedItem));
+        toast(`${selectedItem.name} unlocked!`);
       },
     });
   }, [

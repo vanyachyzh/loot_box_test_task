@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReduxProvider } from "./providers/ReduxProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Interactive Loot Box Component",
@@ -16,6 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ToastContainer
+          position="bottom-right"
+          theme="dark"
+          closeButton={false}
+        />
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
