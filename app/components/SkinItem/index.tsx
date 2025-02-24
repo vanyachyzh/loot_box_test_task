@@ -48,10 +48,9 @@ const SkinItem = ({ skin, state }: Props) => {
           { opacity: 1 },
           { opacity: 0, duration: 0.8, ease: "power3.out" }
         );
-        break;
 
       default:
-        console.log("TODO");
+        break;
     }
   }, [play, skinRef, state]);
 

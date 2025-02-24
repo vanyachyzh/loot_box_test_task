@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import BoxItem from "../Box";
+import BoxItem from "../BoxItem";
 import { useKeyPressEvent } from "react-use";
 import { CrossIcon } from "../icons";
 import SkinRoulette from "../SkinRoulette";
