@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[DEMO](https://loot-box-test-task.vercel.app/)
 
-## Getting Started
+# Next.js Loot Box App!
 
-First, run the development server:
+This application demonstrates a loot box concept where users can open four unique loot boxes, each only once. Each loot box contains a random skin that can be obtained.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How It Works
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1.  The user is presented with four loot boxes on the main page.
+2.  Clicking on a loot box opens it, and the user receives a random skin.
+3.  Once a loot box is opened, it gest disabled and cannot be opened again.
+4.  Each loot box can only be opened once.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   Next.js
+*   GSAP
+*   TypeScript
+*   Tailwind
+*   Jest
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1.  Clone the repository: `git clone https://github.com/vanyachyzh/loot_box_test_task.git`
+2.  Install dependencies: `npm install` or `yarn install`
+3.  Run the development server: `npm run dev` or `yarn dev`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  Open the page in your browser at `http://localhost:3000`.
+2.  Click on a loot box to open it and receive a random skin.
+3.  Note that each loot box can only be opened once.
 
-## Deploy on Vercel
+## Done
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Roulette animation
+* Skin-revealing animation
+* Displaying a message “New item unlocked!”
+* UI responsiveness 
+* Accessibility best practices (e.g., keyboard interactions, ARIA attributes).
+* Adding Redux state manager
+* Writing some tests using Jest
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## TODO 
+
+* Box opening animation
+* WebSocket simulation
+* End-to-end tests using Cypress
+* Write more relevant tests on Jest
+* Adding a glowing effect on skin revealing
+* Adding sound for box opening and roulette spinning
+
+
