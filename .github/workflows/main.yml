@@ -1,8 +1,12 @@
-name: Demo Workflow
-on: workflow_dispatch
+name: Test React App
+on: push
 jobs:
-  print:
+  test: 
     runs-on: ubuntu-latest
     steps:
-      - name: Print to console
-        run: echo Hello GH Actions!
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: npm ci
+      - name: Test application
+        run: npm run test
